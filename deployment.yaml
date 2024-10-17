@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+  namespace: namespace1  # Make sure the deployment is in the correct namespace
+spec:
+  replicas: 1  # Number of replicas (instances) to run
+  selector:
+    matchLabels:
+      app: my-app  # Labels to match the service with the deployment
+  template:
+    metadata:
+      labels:
+        app: my-app  # Label for the pod template
+    spec:
+      containers:
+      - name: nginx-container  # Name of the container
+        image: nginx  # The image to use (nginx in this case)
+        ports:
+        - containerPort: 80  # Port the container will expose
+        resources:  # Adding resource requests and limits
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
